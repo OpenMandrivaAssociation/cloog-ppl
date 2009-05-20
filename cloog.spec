@@ -27,13 +27,13 @@ designed to avoid control overhead and to produce a very efficient code.
 
 %package -n %libname
 Summary: Parma Polyhedra Library backend (ppl) based version of the Cloog binaries
-Group: Development/Libraries
+Group: Development/C
 %description -n %libname
 The dynamic shared libraries of the Chunky Loop Generator
 
 %package -n %libnamedev
 Summary:        Development tools for the ppl based version of Chunky Loop Generator
-Group:          Development/Libraries
+Group:          Development/C
 Requires:       %{libname} = %{version}-%{release}
 Requires:       ppl-devel >= 0.10, gmp-devel >= 4.1.3
 Provides: 	%name-devel = %version-%release
