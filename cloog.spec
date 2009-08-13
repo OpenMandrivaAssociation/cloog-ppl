@@ -1,7 +1,7 @@
 %define 	name		cloog-ppl
-%define		version		0.15.3
+%define		version		0.15.7
 %define		release		%mkrel 1
-%define		major		1
+%define		major		0
 %define		libname		%mklibname cloog %major
 %define		libnamedev	%mklibname -d cloog
 
@@ -41,7 +41,7 @@ Provides: 	%name-devel = %version-%release
 The header files and dynamic shared libraries of the Chunky Loop Generator.
 
 %prep
-%setup -q -n cloog-ppl
+%setup -q -n cloog-ppl-%{version}
 
 %build
 %configure2_5x --with-ppl
@@ -67,7 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_infodir}/cloog.info*
 %{_bindir}/cloog
-%{_libdir}/libcloog.so.*
+%{_libdir}/libcloog.so.%{major}*
 
 %files -n %libnamedev
 %defattr(-,root,root,-)
