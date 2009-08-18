@@ -1,6 +1,6 @@
 %define 	name		cloog-ppl
 %define		version		0.15.7
-%define		release		%mkrel 1
+%define		release		%mkrel 2
 %define		major		0
 %define		libname		%mklibname cloog %major
 %define		libnamedev	%mklibname -d cloog
@@ -28,6 +28,10 @@ designed to avoid control overhead and to produce a very efficient code.
 %package -n %libname
 Summary: Parma Polyhedra Library backend (ppl) based version of the Cloog binaries
 Group: Development/C
+#cloog was originally imported to the repositories with a wrong '1' major, 
+#this Obsoletes is here to make sure this badly named package is upgraded 
+#smoothly
+Obsoletes: %{mklibname cloog 1} < 0.15.7
 %description -n %libname
 The dynamic shared libraries of the Chunky Loop Generator
 
@@ -63,10 +67,13 @@ rm -rf $RPM_BUILD_ROOT
 %postun -n %libname -p /sbin/ldconfig 
 %endif 
 
-%files -n %libname
+%files 
 %defattr(-,root,root,-)
 %{_infodir}/cloog.info*
 %{_bindir}/cloog
+
+%files -n %libname
+%defattr(-,root,root,-)
 %{_libdir}/libcloog.so.%{major}*
 
 %files -n %libnamedev
