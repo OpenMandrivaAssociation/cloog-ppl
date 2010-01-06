@@ -1,6 +1,6 @@
 %define 	name		cloog-ppl
 %define		version		0.15.7
-%define		release		%mkrel 2
+%define		release		%mkrel 3
 %define		major		0
 %define		libname		%mklibname cloog %major
 %define		libnamedev	%mklibname -d cloog
@@ -25,23 +25,24 @@ CLooG finds the code or pseudo-code where each integral point of one or more
 parametrized polyhedron or parametrized polyhedra union is reached. CLooG is
 designed to avoid control overhead and to produce a very efficient code.
 
-%package -n %libname
+%package -n %{libname}
 Summary: Parma Polyhedra Library backend (ppl) based version of the Cloog binaries
 Group: Development/C
 #cloog was originally imported to the repositories with a wrong '1' major, 
 #this Obsoletes is here to make sure this badly named package is upgraded 
 #smoothly
 Obsoletes: %{mklibname cloog 1} < 0.15.7
-%description -n %libname
+%description -n %{libname}
 The dynamic shared libraries of the Chunky Loop Generator
 
-%package -n %libnamedev
+%package -n %{libnamedev}
 Summary:        Development tools for the ppl based version of Chunky Loop Generator
 Group:          Development/C
 Requires:       %{libname} = %{version}-%{release}
 Requires:       ppl-devel >= 0.10, gmp-devel >= 4.1.3
-Provides: 	%name-devel = %version-%release
-%description -n %libnamedev
+Provides: 	%{name}-devel = %{version}-%{release}
+Provides:	lib%{name}-devel = %{version}-%{release}
+%description -n %{libnamedev}
 The header files and dynamic shared libraries of the Chunky Loop Generator.
 
 %prep
@@ -53,18 +54,18 @@ The header files and dynamic shared libraries of the Chunky Loop Generator.
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
-rm -rf $RPM_BUILD_ROOT/%{_infodir}/dir
+rm -rf %{buildroot}/%{_infodir}/dir
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900 
-%post -n %libname -p /sbin/ldconfig 
+%post -n %{libname} -p /sbin/ldconfig 
 %endif 
 %if %mdkversion < 200900 
-%postun -n %libname -p /sbin/ldconfig 
+%postun -n %{libname} -p /sbin/ldconfig 
 %endif 
 
 %files 
@@ -72,19 +73,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_infodir}/cloog.info*
 %{_bindir}/cloog
 
-%files -n %libname
+%files -n %{libname}
 %defattr(-,root,root,-)
 %{_libdir}/libcloog.so.%{major}*
 
-%files -n %libnamedev
+%files -n %{libnamedev}
 %defattr(-,root,root,-)
 %{_includedir}/cloog
 %{_libdir}/libcloog.so
 %exclude %{_libdir}/libcloog.a
 %exclude %{_libdir}/libcloog.la
 
-%post -n %libname
+%post -n %{libname}
 %_install_info %{name}.info
 
-%preun -n %libname
+%preun -n %{libname}
 %_remove_install_info %{name}.info
