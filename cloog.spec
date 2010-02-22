@@ -1,6 +1,6 @@
 %define 	name		cloog-ppl
-%define		version		0.15.7
-%define		release		%mkrel 4
+%define		version		0.15.8
+%define		release		%mkrel 1
 %define		major		0
 %define		libname		%mklibname cloog %major
 %define		libnamedev	%mklibname -d cloog
@@ -12,8 +12,8 @@ Summary:        The Chunky Loop Generator
 
 Group:          System/Libraries
 License:        GPLv2+
-URL:            http://www.cloog.org
-Source0:        %{name}-%{version}.tar.gz
+URL:            http://repo.or.cz/w/cloog-ppl.git
+Source0:        ftp://gcc.gnu.org/pub/gcc/infrastructure/%{name}-%{version}.tar.gz
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:  ppl-devel >= 0.10, gmp-devel >= 4.1.3, texinfo >= 4.12
 Requires(post): info-install
