@@ -1,6 +1,6 @@
 %define 	name		cloog-ppl
 %define		version		0.15.8
-%define		release		%mkrel 1
+%define		release		%mkrel 2
 %define		major		0
 %define		libname		%mklibname cloog %major
 %define		libnamedev	%mklibname -d cloog
