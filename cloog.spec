@@ -49,14 +49,13 @@ The header files and dynamic shared libraries of the Chunky Loop Generator.
 %setup -q -n cloog-ppl-%{version}
 
 %build
-%configure2_5x --with-ppl
+%configure2_5x --with-ppl --disable-static
 %make
-
 
 %install
 rm -rf %{buildroot}
 %makeinstall_std
-rm -rf %{buildroot}/%{_infodir}/dir
+rm -rf %{buildroot}/%{_infodir}/dir %{buildroot}/%{_libdir}/*.la
 
 %clean
 rm -rf %{buildroot}
@@ -81,8 +80,6 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %{_includedir}/cloog
 %{_libdir}/libcloog.so
-%exclude %{_libdir}/libcloog.a
-%exclude %{_libdir}/libcloog.la
 
 %post -n %{libname}
 %_install_info %{name}.info
