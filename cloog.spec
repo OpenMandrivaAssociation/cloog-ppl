@@ -16,7 +16,10 @@ License:        GPLv2+
 URL:            http://www.cloog.org
 Source0:        ftp://gcc.gnu.org/pub/gcc/infrastructure/%{sourcename}-%{version}.tar.gz
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:  ppl-devel >= 0.11, gmp-devel >= 4.1.3, texinfo >= 4.12
+BuildRequires:  ppl-devel >= 0.11
+BuildRequires:  ppl_c-devel >= 0.11
+BuildRequires:	gmp-devel
+BuildRequires:	texinfo
 Requires(post): info-install
 Requires(preun): info-install
 
@@ -37,7 +40,9 @@ The dynamic shared libraries of the Chunky Loop Generator
 Summary:        Development tools for the ppl based version of Chunky Loop Generator
 Group:          Development/C
 Requires:       %{libname} = %{version}-%{release}
-Requires:       ppl-devel >= 0.10, gmp-devel >= 4.3.2
+Requires:	gmp-devel
+Requires:       ppl-devel >= 0.11
+Requires:       ppl_c-devel >= 0.11
 Provides: 	%{name}-devel = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 %description -n %{libnamedev}
