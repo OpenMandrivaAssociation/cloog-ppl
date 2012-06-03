@@ -1,27 +1,22 @@
-%define 	name		cloog-ppl
 %define		sourcename	cloog-parma
-%define		version		0.16.1
-%define		release		%mkrel 1
+
 %define		major		1
-%define		libname		%mklibname cloog %major
+%define		libname		%mklibname cloog %{major}
 %define		libnamedev	%mklibname -d cloog
 
-Name:           %{name}
-Version:        %{version}
-Release:        %{release}
-Summary:        The Chunky Loop Generator
+Name:		cloog-ppl
+Version:	0.16.1
+Release:	2
+Summary:	The Chunky Loop Generator
 
-Group:          System/Libraries
-License:        GPLv2+
-URL:            http://www.cloog.org
-Source0:        ftp://gcc.gnu.org/pub/gcc/infrastructure/%{sourcename}-%{version}.tar.gz
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:  ppl-devel >= 0.11
-BuildRequires:  ppl_c-devel >= 0.11
+Group:		System/Libraries
+License:	GPLv2+
+URL:		http://www.cloog.org
+Source0:	ftp://gcc.gnu.org/pub/gcc/infrastructure/%{sourcename}-%{version}.tar.gz
+BuildRequires:	ppl-devel >= 0.11
+BuildRequires:	ppl_c-devel >= 0.11
 BuildRequires:	gmp-devel
 BuildRequires:	texinfo
-Requires(post): info-install
-Requires(preun): info-install
 
 %description
 CLooG is a software which generates loops for scanning Z-polyhedra. That is,
@@ -30,21 +25,22 @@ parametrized polyhedron or parametrized polyhedra union is reached. CLooG is
 designed to avoid control overhead and to produce a very efficient code.
 
 %package -n %{libname}
-Summary: Parma Polyhedra Library backend (ppl) based version of the Cloog binaries
-Group: Development/C
+Summary:	Parma Polyhedra Library backend (ppl) based version of the Cloog binaries
+Group:		Development/C
 
 %description -n %{libname}
 The dynamic shared libraries of the Chunky Loop Generator
 
 %package -n %{libnamedev}
-Summary:        Development tools for the ppl based version of Chunky Loop Generator
-Group:          Development/C
-Requires:       %{libname} = %{version}-%{release}
+Summary:	Development tools for the ppl based version of Chunky Loop Generator
+Group:		Development/C
+Requires:	%{libname} = %{version}-%{release}
 Requires:	gmp-devel
-Requires:       ppl-devel >= 0.11
-Requires:       ppl_c-devel >= 0.11
-Provides: 	%{name}-devel = %{version}-%{release}
+Requires:	ppl-devel >= 0.11
+Requires:	ppl_c-devel >= 0.11
+Provides:	%{name}-devel = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
+
 %description -n %{libnamedev}
 The header files and dynamic shared libraries of the Chunky Loop Generator.
 
@@ -58,35 +54,16 @@ The header files and dynamic shared libraries of the Chunky Loop Generator.
 %install
 rm -rf %{buildroot}
 %makeinstall_std
-rm -rf %{buildroot}/%{_infodir}/dir %{buildroot}/%{_libdir}/*.la
+rm -rf %{buildroot}%{_infodir}/dir
 
-%clean
-rm -rf %{buildroot}
-
-%if %mdkversion < 200900 
-%post -n %{libname} -p /sbin/ldconfig 
-%endif 
-%if %mdkversion < 200900 
-%postun -n %{libname} -p /sbin/ldconfig 
-%endif 
-
-%files 
-%defattr(-,root,root,-)
-# %{_infodir}/cloog.info*
+%files
 %{_bindir}/cloog
 
 %files -n %{libname}
-%defattr(-,root,root,-)
 %{_libdir}/libcloog-ppl.so.%{major}*
 
 %files -n %{libnamedev}
-%defattr(-,root,root,-)
 %{_includedir}/cloog
 %{_libdir}/libcloog-ppl.so
 %{_libdir}/pkgconfig/cloog-ppl.pc
 
-%post -n %{libname}
-%_install_info %{name}.info
-
-%preun -n %{libname}
-%_remove_install_info %{name}.info
